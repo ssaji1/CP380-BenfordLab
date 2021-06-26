@@ -41,9 +41,44 @@ namespace BenfordLab
             //   - transform (select) the data so that you have a list of
             //     BenfordData objects
             //
-            var m = ??? ;
+            /* int i = 0;
+                foreach (var row in data)
+            {
+               i++;
+                   }
+            var arr[] = var int[i];
+            int j = 0;
+            foreach (var row in data)
+            {
+                 arr[j] = FirstDigit.getFirstDigit(row.Population);
+                 j++;
 
-            return m.ToArray();
+            if (FirstDigitNum is null)
+                {
+                    throw new ArgumentNullException(nameof(FirstDigitNum));
+                }
+            }*/
+
+            var m = data
+                .GroupBy(FirstDigitNum =>
+                {
+                    if (FirstDigitNum is null)
+                    {
+                        throw new ArgumentNullException(nameof(FirstDigitNum));
+                    }
+
+                    return FirstDigit.getFirstDigit(FirstDigitNum.Population);
+                })
+                .Select(
+                arr =>
+                {
+                    return new BenfordData
+                    {
+                        Digit = arr.Key,
+                        Count = arr.Count()
+                    };
+                });
+            return m.OrderByDescending(m => m.Digit).ToArray();
         }
     }
 }

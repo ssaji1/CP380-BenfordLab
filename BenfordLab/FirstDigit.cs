@@ -17,7 +17,11 @@ namespace BenfordLab
          */
         public static int getFirstDigit(int digit) {
             // TODO
-            return 0;
+            while (digit >= 10)
+            {
+                digit = digit/10;
+            }
+            return digit;
         }    
     }
 }
